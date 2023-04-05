@@ -44,6 +44,10 @@
       <artifactId>quarkus-smallrye-health</artifactId>
     </dependency>
     <!-- TODO: Add dependency for quarkus-smallrye-metrics -->
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-smallrye-metrics</artifactId>
+</dependency>
   </dependencies>
   <build>
     <plugins>
