@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: product
+    version: v1
+  name: product
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: product
+        version: v1
+      annotations:
+        sidecar.istio.io/inject: "true"
+        # TODO: Add annotations for prometheus scraping
+    spec:
+      containers:
+      - name: product
+        image: quay.io/youruser/ossm-metrics-product:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product
+  labels:
+    app: product
+spec:
+  ports:
+  - name: http
+    port: 8080
+  selector:
+    app: product
